@@ -20,24 +20,22 @@ The core of Ivoire (and some of its plugins) is based roughly on the core of
 MersenneTwister = require('mersenne-twister')
 
 
-use = require('use-plugin')
-  prefix: 'ivoire-'
-  module: module
-  builtin: './lib/plugin/'
-
 # Constants
 MAX_INT = 9007199254740992
 MIN_INT = -MAX_INT
-
-test_range = (test, errorMessage) ->
-  if test
-    throw new RangeError(errorMessage)
 
 
 class Ivoire
   constructor: (seed) ->
     @seed = seed
     @twister = new MersenneTwister(seed)
+
+  ###
+  If the test is true, throw a RangeError with the given error message.
+  ###
+  panic_if: (test, errorMessage) ->
+    if test
+      throw new RangeError("Ivoire: " + errorMessage)
 
   ###
   Return a new Ivoire instance seeded from the next random number in sequence.
@@ -98,7 +96,7 @@ class Ivoire
     min = if options and options.min then options.min else MIN_INT
     max = if options and options.max then options.max else MAX_INT
 
-    test_range(min > max, "Ivoire: Min cannot be greater than Max.");
+    @panic_if(min > max, "Min cannot be greater than Max.");
 
     return Math.floor(@random() * (max - min + 1) + min);
 
@@ -117,7 +115,7 @@ class Ivoire
   ###
   natural: (options) ->
     options.min = 0 if not options.min
-    test_range(options.min < 0, "Ivoire: Min cannot be less than zero.")
+    @panic_if(options.min < 0, "Min cannot be less than zero.")
     return this.integer(options);
 
   ###
@@ -127,7 +125,7 @@ class Ivoire
   @returns {Object} a single item from the array
   ###
   pick: (arr) ->
-    test_range arr.length == 0, "Ivoire: Cannot pick() from an empty array"
+    @panic_if arr.length == 0, "Cannot pick() from an empty array"
 
     return arr[@natural({max: arr.length - 1})];
 
@@ -139,7 +137,7 @@ class Ivoire
   @returns {Array} a slice of item from the array
   ###
   pick_some: (arr, count) ->
-    test_range arr.length == 0, "Ivoire: Cannot pick_some() from an empty array"
+    @panic_if arr.length == 0, "Cannot pick_some() from an empty array"
 
     return @shuffle(arr).slice(0, count);
 
@@ -165,16 +163,5 @@ class Ivoire
 
     return new_array
 
-###
-Use the named plugin module.
-
-If we `Ivoire.use('foo')`, this will require a plugin by name, trying 'foo',
-'ivoire-foo', './foo', and './ivoire-foo'.
-
-@param {String} [name] specify the plugin to load.
-###
-Ivoire.use = (name) ->
-  plugin_description = use(name)
-  return plugin_description.init(Ivoire)
 
 module.exports = Ivoire

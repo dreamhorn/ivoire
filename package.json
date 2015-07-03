@@ -7,6 +7,10 @@
     "test": "make test",
     "prepublish": "make build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dreamhorn/ivoire.git"
+  },
   "keywords": [
     "random",
     "procedural",
@@ -14,9 +18,12 @@
   ],
   "author": "David Eyk <david.eyk@gmail.com>",
   "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/dreamhorn/ivoire/issues"
+  },
+  "homepage": "https://github.com/dreamhorn/ivoire",
   "dependencies": {
     "mersenne-twister": "^1.0.1",
-    "use-plugin": "^0.3.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
