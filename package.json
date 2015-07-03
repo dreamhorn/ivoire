@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/dreamhorn/ivoire",
   "dependencies": {
-    "mersenne-twister": "^1.0.1",
+    "mersenne-twister": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
