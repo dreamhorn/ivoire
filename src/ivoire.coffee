@@ -71,12 +71,12 @@ class Ivoire
   integer: (options) ->
     # 9007199254740992 (2^53) is the max integer number in JavaScript
     # See: http://vq.io/132sa2j
-    min = if options and options.min then options.min else MIN_INT
-    max = if options and options.max then options.max else MAX_INT
+    min = if options and options.min is undefined then MIN_INT else options.min
+    max = if options and options.max is undefined then MAX_INT else options.max
 
     @panic_if(min > max, "Min cannot be greater than Max.");
-
-    return Math.floor(@random() * (max - min + 1) + min);
+    rand = Math.floor(@random() * (max - min + 1)) + min
+    return rand;
 
   ###
   Return a random natural integer on the provided interval.
@@ -92,7 +92,7 @@ class Ivoire
   @throws {RangeError} min cannot be greater than max
   ###
   natural: (options) ->
-    options.min = 0 if not options.min
+    options.min = 0 if options.min is undefined
     @panic_if(options.min < 0, "Min cannot be less than zero.")
     return this.integer(options);
 
@@ -105,7 +105,7 @@ class Ivoire
   pick: (arr) ->
     @panic_if arr.length == 0, "Cannot pick() from an empty array"
 
-    return arr[@natural({max: arr.length - 1})];
+    return arr[@natural({max: arr.length - 1})]
 
   ###
   Return random elements from the provided array.
