@@ -25,17 +25,25 @@ MAX_INT = 9007199254740992
 MIN_INT = -MAX_INT
 
 
+###
+If the test is false, throw a RangeError with the given error message.
+###
+assert = (test, errorMessage) ->
+  if not test
+    throw new RangeError("Ivoire: " + errorMessage)
+
+###
+If the test is true, throw a RangeError with the given error message.
+###
+panic_if = (test, errorMessage) -> assert not test
+
 class Ivoire
   constructor: (seed) ->
     @seed = seed
     @twister = new MersenneTwister(seed)
 
-  ###
-  If the test is true, throw a RangeError with the given error message.
-  ###
-  panic_if: (test, errorMessage) ->
-    if test
-      throw new RangeError("Ivoire: " + errorMessage)
+  panic_if: panic_if
+  assert: assert
 
   ###
   Return a new Ivoire instance seeded from the next random number in sequence.
@@ -133,5 +141,8 @@ class Ivoire
 
     return new_array
 
+
+Ivoire.panic_if = panic_if
+Ivoire.assert = assert
 
 module.exports = Ivoire
