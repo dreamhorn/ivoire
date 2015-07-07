@@ -26,16 +26,16 @@ MIN_INT = -MAX_INT
 
 
 ###
-If the test is false, throw a RangeError with the given error message.
+If the test is false, throw a Error with the given error message.
 ###
 assert = (test, errorMessage) ->
   if not test
-    throw new RangeError("Ivoire: " + errorMessage)
+    throw new Error("Ivoire: " + errorMessage)
 
 ###
 If the test is true, throw a RangeError with the given error message.
 ###
-panic_if = (test, errorMessage) -> assert not test
+panic_if = (test, errorMessage) -> assert not test, errorMessage
 
 class Ivoire
   constructor: (seed) ->
@@ -129,9 +129,9 @@ class Ivoire
     old_array = arr.slice(0)
     new_array = []
     j = 0
-    length = Number(old_array.length)
+    length = old_array.length
 
-    for i in [0..length]
+    for i in [0..length-1]
       # Pick a random index from the array
       j = @natural {max: old_array.length - 1}
       # Add it to the new array

@@ -71,6 +71,40 @@ describe('ivoire', function () {
     });
   });
 
+  describe('#pick_some()', function () {
+    it('should pick some random items from an array', function () {
+      var items = ['foo', 'bar', 'baz', 'blah', 'boo', 'boing'];
+      var r;
+      var results = [];
+      for (var i = 0; i < 1000; i++) {
+        r = ivoire.pick_some(items, 2);
+        r.should.have.length(2);
+        results = results.concat(r);
+        for (var j = 0; j < r.length; j++) {
+          items.should.contain(r[j]);
+        }
+      }
+      results.should.contain('foo');
+      results.should.contain('bar');
+      results.should.contain('baz');
+    });
+  });
+
+  describe('#shuffle()', function () {
+    it('should shuffle an array', function () {
+      var items = ['foo', 'bar', 'baz', 'blah', 'boo', 'boing'];
+      items.sort();
+      var shuffled;
+      for (var i = 0; i < 1000; i++) {
+        shuffled = ivoire.shuffle(items);
+        shuffled.should.have.length(items.length);
+        shuffled.should.not.equal(items);
+        shuffled.sort();
+        shuffled.should.eql(items);
+      }
+    });
+  });
+
   describe('#subgen()', function () {
     it('should create a new sub-generator', function () {
       var subgen = ivoire.subgen();
