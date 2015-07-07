@@ -28,7 +28,6 @@
   "devDependencies": {
     "chai": "^3.0.0",
     "coffee-script": "^1.9.3",
-    "lodash": "^3.10.0",
     "mocha": "^2.2.5"
   }
 }

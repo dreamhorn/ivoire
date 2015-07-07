@@ -1,6 +1,5 @@
 var chai = require('chai');
 var Ivoire = require("./lib/ivoire.js");
-var _ = require('lodash');
 
 chai.should();
 
@@ -22,7 +21,7 @@ describe('ivoire', function () {
         r.should.be.at.least(0);
         r.should.be.below(1);
       }
-      _.contains(results, 0).should.be.true;
+      results.should.contain(0);
     });
   });
 
@@ -36,22 +35,39 @@ describe('ivoire', function () {
         r.should.be.at.least(0);
         r.should.be.at.most(10);
       }
-      _.contains(results, 0).should.be.true;
-      _.contains(results, 10).should.be.true;
+      results.should.contain(0);
+      results.should.contain(10);
+    });
+  });
+
+  describe('#natural()', function () {
+    it('should generate a random natural number within the specified interval', function () {
+      var r;
+      var results = [];
+      for (var i = 0; i < 10000; i++) {
+        r = ivoire.natural({max: 10});
+        results.push(r);
+        r.should.be.at.least(0);
+        r.should.be.at.most(10);
+      }
+      results.should.contain(0);
+      results.should.contain(10);
     });
   });
 
   describe('#pick()', function () {
     it('should pick a random item from an array', function () {
       var items = ['foo', 'bar', 'baz'];
-      ivoire.pick(items).should.equal('bar');
-      ivoire.pick(items).should.equal('bar');
-      ivoire.pick(items).should.equal('baz');
-      ivoire.pick(items).should.equal('baz');
-      ivoire.pick(items).should.equal('bar');
-      ivoire.pick(items).should.equal('baz');
-      ivoire.pick(items).should.equal('bar');
-      ivoire.pick(items).should.equal('baz');
+      var r;
+      var results = [];
+      for (var i = 0; i < 10000; i++) {
+        r = ivoire.pick(items);
+        results.push(r);
+        items.should.contain(r);
+      }
+      results.should.contain('foo');
+      results.should.contain('bar');
+      results.should.contain('baz');
     });
   });
 
