@@ -50,36 +50,6 @@ class Ivoire
     return @twister.random()
 
   ###
-  Return a random integer on the [0, 4294967295] natural interval.
-  ###
-  random_int: () ->
-    return @twister.random_int()
-
-  ###
-  Return a random float on the [0, 1] (inclusive) real interval.
-  ###
-  random_incl: () ->
-    return @twister.random_incl()
-
-  ###
-  Return a random float on the (0, 1) (exclusive) real interval.
-  ###
-  random_excl: () ->
-    return @twister.random_excl()
-
-  ###
-  Return a random float [0, 1) with 53-bit resolution
-  ###
-  random_long: () ->
-    return @twister.random_long()
-
-  ###
-  Return a random integer on the [0, 2147483647] natural interval.
-  ###
-  random_int31: () ->
-    return @twister.random_int31()
-
-  ###
   Return a random integer on the provided interval.
 
   NOTE the max and min are INCLUDED in the range. So:
