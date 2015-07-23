@@ -23,11 +23,12 @@ Changelog
 
 ### 1.1.0
 
-- Fixed major bug in `#integer()`
+- Fixed major bugs in `#integer()` and `#shuffle()`.
+- Fixed other bugs.
 - Added more/better tests.
 - Removed interface mirroring of Mersenne Twister implementation. Only
   `#random()` is proxied now. This is technically a backwards-incompatible
-  change, but it seems silly to go to 2.0 when the library is so now.
+  change, but it seems silly to go to 2.0 when the library is so new.
 
 ### 1.0.0
 
