@@ -3,6 +3,8 @@ Ivoire Core
 
 A pseudo-random number generator, rare, powerful, and extensible.
 
+[![Build Status](https://travis-ci.org/dreamhorn/ivoire.svg?branch=master)](https://travis-ci.org/dreamhorn/ivoire)
+
 Ivoire is a pseudo-random number generator, powered by the Mersenne
 Twister. Ivoire provides the building blocks for generating deterministic
 random sequences. Deterministic, or pseudo-random sequences appear random,
